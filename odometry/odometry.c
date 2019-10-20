@@ -22,9 +22,9 @@ void odometry_update(){
 	uint16_t bit_cnt_fw = ODOMETRY_TIMER_F_ENC->CNT;
 	uint16_t bit_cnt_rw = ODOMETRY_TIMER_R_ENC->CNT;
 
-	TIM1->CNT -= bit_cnt_lw;
-	TIM3->CNT -= bit_cnt_fw;
-	TIM4->CNT -= bit_cnt_rw;
+	ODOMETRY_TIMER_L_ENC->CNT -= bit_cnt_lw;
+	ODOMETRY_TIMER_F_ENC->CNT -= bit_cnt_fw;
+	ODOMETRY_TIMER_R_ENC->CNT -= bit_cnt_rw;
 
 	double dlw = ODOMETRY_DIR_L_ENC(double)((bit_cnt_lw>>15)?(-(short)(~bit_cnt_lw)-1):(bit_cnt_lw)) / ODOMETRY_PPR_ENCWHEEL * 2.0*M_PI * ODOMETRY_RADIUS_ENCWHEEL;
 	double dfw = ODOMETRY_DIR_F_ENC(double)((bit_cnt_fw>>15)?(-(short)(~bit_cnt_fw)-1):(bit_cnt_fw)) / ODOMETRY_PPR_ENCWHEEL * 2.0*M_PI * ODOMETRY_RADIUS_ENCWHEEL;
