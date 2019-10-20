@@ -36,13 +36,16 @@ void odometry_update(){
 
 	// Kahan summation algorithm
 	double y, t;
+	
+	double s_theta = sin(odometry_theta_ + 0.5*odometry_dtheta_);
+	double c_theta = cos(odometry_theta_ + 0.5*odometry_dtheta_);
 
-	y = odometry_dx_rel_*cos(odometry_theta_ + 0.5*odometry_dtheta_) - odometry_dy_rel_*sin(odometry_theta_ + 0.5*odometry_dtheta_) - odometry_c_x_;
+	y = odometry_dx_rel_*c_theta - odometry_dy_rel_*s_theta - odometry_c_x_;
 	t = odometry_x_ + y;
 	odometry_c_x_ = (t - odometry_x_) - y;
 	odometry_x_ = t;
 
-	y = odometry_dx_rel_*sin(odometry_theta_ + 0.5*odometry_dtheta_) + odometry_dy_rel_*cos(odometry_theta_ + 0.5*odometry_dtheta_) - odometry_c_y_;
+	y = odometry_dx_rel_*s_theta + odometry_dy_rel_*c_theta - odometry_c_y_;
 	t = odometry_y_ + y;
 	odometry_c_y_ = (t - odometry_y_) - y;
 	odometry_y_ = t;
