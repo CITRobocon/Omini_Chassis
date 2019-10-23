@@ -1,6 +1,6 @@
 # Omini_Chassis
 
-## cubeMX pin configurations
+## cubeMX pin configurations (Last update: 2019/10/24 sano)
 * **System Core**
   * **RCC**
     > <dl>
