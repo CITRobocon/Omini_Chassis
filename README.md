@@ -70,3 +70,33 @@
     >
     >  <dt>Channel2: PWM Generation CH2</dt>
     >  <dd>Front left motor (forward)</dd>
+
+* **Conectivity**
+  * **CAN**
+    > <dl>
+    >  <dt>Master Mode</dt>
+    > </dl>
+    
+  * **ETH**
+    > <dl>
+    >  <dt>RMII</dt>
+    > </dl>
+    
+  * **UART4**
+    > <dl>
+    >  <dt>Mode: Asynchronous</dt>
+    >  <dd>Connection between Linux PC and stm32</dd>
+    > </dl>
+    
+  * **USART3**
+    > <dl>
+    >  <dt>Mode: Asynchronous</dt>
+    >  <dd>Connection between debugging PC and stm32</dd>
+    > </dl>
+    
+  * **USB_OTG_FS**
+    > <dl>
+    >  <dt>Mode: Device_Only</dt>
+    >  <dt>Active_SOF</dt>
+    >  <dt>Active_VBUS</dt>
+    > </dl>
