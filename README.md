@@ -1,6 +1,6 @@
 # Omini_Chassis
 
-### cubeMX pin setting
+## cubeMX pin setting
 * Timers
   * TIM1  
     * Combined Channels: Encoder Mode
