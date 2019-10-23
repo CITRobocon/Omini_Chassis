@@ -1,6 +1,6 @@
 # Omini_Chassis
 
-## cubeMX pin configuration
+## cubeMX pin configurations
 * **Timers**
   * **TIM1**
     > <dl>
