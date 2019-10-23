@@ -1,18 +1,19 @@
 # Omini_Chassis
 
-## cubeMX pin setting
+## cubeMX pin configuration
 * Timers
   * TIM1  
     * Combined Channels: Encoder Mode
-      > left encoder(plus direction)
+      > Left encoder(plus direction)
+      
   * TIM2
     * Channel1: PWM Generation CH1
-      > front right motor(forward)
+      > Front right motor(forward)
     * Channel3: PWM Generation CH3
-      > front left motor(backward)
+      > Front left motor(backward)
     * Chennel4: PWM Generation CH4
-      > front left motor(forward)
+      > Front left motor(forward)
       
   * TIM7
     * Activated
-      > timer interrupt
+      > Timer interrupt
