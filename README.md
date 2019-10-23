@@ -4,6 +4,7 @@
 * Timers
   * TIM1  
     * Combined Channels: Encoder Mode
+      > left encoder(plus direction)
   * TIM2
     * Channel1: PWM Generation CH1
       > front right motor(forward)
