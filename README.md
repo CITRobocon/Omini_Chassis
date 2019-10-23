@@ -19,6 +19,18 @@
     >  <dt>Channel4: PWM Generation Mode</dt>
     >  <dd>Front left motor(forward)</dd>
     > </dl>
+    
+  * **TIM3**
+    > <dl>
+    >  <dt>Combined Channels: Encoder Mode</dt>
+    >  <dd>Front enoder(plus direction)</dd>
+    > </dl>
+    
+  * **TIM4**
+    > <dl>
+    >  <dt>Combined Channels: Encoder Mode</dt>
+    >  <dd>Right enoder(plus direction)</dd>
+    > </dl>
       
   * **TIM7**
     > <dl>
