@@ -3,8 +3,8 @@
 ## cubeMX pin configuration
 * Timers
   * TIM1  
-    > * Combined Channels: Encoder Mode
-    >   > Left encoder(plus direction)
+    > * Combined Channels: Encoder Mode  
+    >   `Left encoder(plus direction)`
       
   * TIM2
     > * Channel1: PWM Generation CH1
