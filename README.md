@@ -82,13 +82,13 @@
   * **UART4**
     > <dl>
     >  <dt>Mode: Asynchronous</dt>
-    >  <dd>シリアル通信（LinuxPC）</dd>
+    >  <dd>シリアル通信（stm-LinuxPC）</dd>
     > </dl>
     
   * **USART3**
     > <dl>
     >  <dt>Mode: Asynchronous</dt>
-    >  <dd>シリアル通信（デバッグPC）</dd>
+    >  <dd>シリアル通信（stm-デバッグPC）</dd>
     > </dl>
     
   * **USB_OTG_FS**
