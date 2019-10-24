@@ -19,6 +19,7 @@
     > <dl>
     >  <dt>Channel1: PWM Generation CH1</dt>
     >  <dd>モータドライバ信号（右前モータ/前進方向）</dd>
+    >  <dd>周期：500Hz<br>入力範囲：0-1000</dd>
     >
     >  <dt>Channel3: PWM Generation CH3</dt>
     >  <dd>モータドライバ信号（左前モータ/後進方向）</dd>
