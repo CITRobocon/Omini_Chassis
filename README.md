@@ -5,9 +5,6 @@
   * **RCC**
     > <dl>
     >  <dt>High Speed Clock (HSE): BYPASS Clock Source</dt>
-    > </dl>
-    >
-    > <dl>
     >  <dt>Low Speed Clock (LSE): Crystal/Ceramic Resonator</dt>
     > </dl>
 
@@ -15,7 +12,7 @@
   * **TIM1**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>左エンコーダ（正方向）</dd>
+    >  <dd>エンコーダカウンタ（左/正方向）</dd>
     > </dl>
       
   * **TIM2**
@@ -33,19 +30,19 @@
   * **TIM3**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>前エンコーダ（負方向）</dd>
+    >  <dd>エンコーダカウンタ（前/負方向）</dd>
     > </dl>
     
   * **TIM4**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>右エンコーダ（正方向）</dd>
+    >  <dd>エンコーダカウンタ（右/正方向）</dd>
     > </dl>
       
   * **TIM7**
     > <dl>
     >  <dt>Activated</dt>
-    >  <dd>Tickerタイマ割り込み</dd>
+    >  <dd>タイマ割込（Ticker管理用）</dd>
     > </dl>
       
   * **TIM8**
@@ -85,13 +82,13 @@
   * **UART4**
     > <dl>
     >  <dt>Mode: Asynchronous</dt>
-    >  <dd>LinuxPCとの通信</dd>
+    >  <dd>シリアル通信（LinuxPC）</dd>
     > </dl>
     
   * **USART3**
     > <dl>
     >  <dt>Mode: Asynchronous</dt>
-    >  <dd>デバッグPCとの通信</dd>
+    >  <dd>シリアル通信（デバッグPC）</dd>
     > </dl>
     
   * **USB_OTG_FS**
