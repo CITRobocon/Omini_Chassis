@@ -12,7 +12,7 @@
   * **TIM1**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>エンコーダカウンタ（左/正方向）</dd>
+    >  <dd>エンコーダカウンタ（左エンコーダ/正方向）</dd>
     > </dl>
       
   * **TIM2**
@@ -30,19 +30,19 @@
   * **TIM3**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>エンコーダカウンタ（前/負方向）</dd>
+    >  <dd>エンコーダカウンタ（前エンコーダ/負方向）</dd>
     > </dl>
     
   * **TIM4**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>エンコーダカウンタ（右/正方向）</dd>
+    >  <dd>エンコーダカウンタ（右エンコーダ/正方向）</dd>
     > </dl>
       
   * **TIM7**
     > <dl>
     >  <dt>Activated</dt>
-    >  <dd>タイマ割込（Ticker管理用）</dd>
+    >  <dd>タイマ割り込み（ticker管理）</dd>
     > </dl>
       
   * **TIM8**
