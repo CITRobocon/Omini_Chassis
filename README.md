@@ -15,61 +15,61 @@
   * **TIM1**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>Left enoder (plus direction)</dd>
+    >  <dd>左エンコーダ（正方向）</dd>
     > </dl>
       
   * **TIM2**
     > <dl>
     >  <dt>Channel1: PWM Generation CH1</dt>
-    >  <dd>Front right motor (forward)</dd>
+    >  <dd>モータドライバ信号（右前モータ/前進方向）</dd>
     >
     >  <dt>Channel3: PWM Generation CH3</dt>
-    >  <dd>Front left motor (backward)</dd>
+    >  <dd>モータドライバ信号（左前モータ/後進方向）</dd>
     >
     >  <dt>Channel4: PWM Generation CH4</dt>
-    >  <dd>Front left motor (forward)</dd>
+    >  <dd>モータドライバ信号（左前モータ/前進方向）</dd>
     > </dl>
     
   * **TIM3**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>Front enoder (minus direction)</dd>
+    >  <dd>前エンコーダ（負方向）</dd>
     > </dl>
     
   * **TIM4**
     > <dl>
     >  <dt>Combined Channels: Encoder Mode</dt>
-    >  <dd>Right enoder (plus direction)</dd>
+    >  <dd>右エンコーダ（正方向）</dd>
     > </dl>
       
   * **TIM7**
     > <dl>
     >  <dt>Activated</dt>
-    >  <dd>Timer interrupt</dd>
+    >  <dd>Tickerタイマ割り込み</dd>
     > </dl>
       
   * **TIM8**
     > <dl>
     >  <dt>Channel1: PWM Generation CH1</dt>
-    >  <dd>Rear right motor (backward)</dd>
+    >  <dd>モータドライバ信号（右後モータ/後進方向）</dd>
     >
     >  <dt>Channel2: PWM Generation CH2</dt>
     >  <dd>?</dd>
     >
     >  <dt>Channel3: PWM Generation CH3</dt>
-    >  <dd>Rear right motor (forward)</dd>
+    >  <dd>モータドライバ信号（右後モータ/前進方向）</dd>
     >
     >  <dt>Channel4: PWM Generation CH4</dt>
-    >  <dd>Rear left motor (backward)</dd>
+    >  <dd>モータドライバ信号（左後モータ/後進方向）</dd>
     > </dl>
       
   * **TIM9**
     > <dl>
     >  <dt>Channel1: PWM Generation CH1</dt>
-    >  <dd>Front right motor (backward)</dd>
+    >  <dd>モータドライバ信号（右前モータ/後進方向）</dd>
     >
     >  <dt>Channel2: PWM Generation CH2</dt>
-    >  <dd>Front left motor (forward)</dd>
+    >  <dd>モータドライバ信号（左前モータ/前進方向）</dd>
 
 * **Conectivity**
   * **CAN**
@@ -85,13 +85,13 @@
   * **UART4**
     > <dl>
     >  <dt>Mode: Asynchronous</dt>
-    >  <dd>Connection between Linux PC and stm32</dd>
+    >  <dd>LinuxPCとの通信</dd>
     > </dl>
     
   * **USART3**
     > <dl>
     >  <dt>Mode: Asynchronous</dt>
-    >  <dd>Connection between debugging PC and stm32</dd>
+    >  <dd>デバッグPCとの通信</dd>
     > </dl>
     
   * **USB_OTG_FS**
