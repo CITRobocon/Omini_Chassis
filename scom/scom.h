@@ -14,10 +14,10 @@
  *  Serial Communication Protocol
  *
  *    Packet format
- *       1 Byte  - Sync Header(0xFF)
- *       1 Byte  - Message Length (N)
- *       N Bytes - Serialized Message Data
- *       2 Bytes - Checksum over Message
+ *       1 Byte     - Sync Header(0xFF)
+ *       1~2 Bytes  - Message Length (N)
+ *       N~2N Bytes - Serialized Message Data
+ *       2~4 Bytes  - Checksum over Message
  *
  *       0xFF: Sync Header
  *       0xFE: Escape Sequence and Mask
