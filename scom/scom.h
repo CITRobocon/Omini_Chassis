@@ -14,7 +14,7 @@
  *    Packet format
  *       1 Byte     - Sync Header(0xFF)
  *       1~2 Bytes  - Message Length (N)
- *       N~2N Bytes - Serialized Message Data
+ *       N~2N Bytes - Serialized Data
  *       2~4 Bytes  - Checksum over Message
  *
  *       0xFF: Sync Header
@@ -26,7 +26,7 @@
  *       Send packet: | 0xFF | 0x03 | 0x00 | 0xFE | 0xFF^0xFE | 0xFE | 0xFE^0xFE | 0xFE | 0xFE^0xFF | 0x02 |
  *                    |      |      |      |EscSeq| MaskedData|EscSeq| MaskedData|EscSeq| MaskedData|      |
  *                    |      |      | Data1|       Data2      |       Data3      |      LoByte      |HiByte|
- *                    |Header|Length|          SerializedMessageData             |         Checksum        |
+ *                    |Header|Length|                SerializedData              |         Checksum        |
  *
  *                     (Checksum = 0xFF + 0x03 + 0x00 + 0xFE + 0xFF^0xFE + 0xFE + 0xFE^0xFE = 0x02FF)
  *                                                             ˜˜˜˜˜˜˜˜˜0x01      ˜˜˜˜˜˜˜˜˜0x00
