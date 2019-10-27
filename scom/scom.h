@@ -11,7 +11,7 @@
 #include "stm32f7xx_hal.h"
 
 /*
- *  Serial Communication Protocol version 1.0
+ *  Serial Communication Protocol
  *
  *    Packet format
  *       1 Byte  - Sync Header(0xFF)
@@ -22,7 +22,7 @@
  *       0xFF: Sync Header
  *       0xFE: Escape Sequence and Mask
  *
- *    example:
+ *    An example
  *       Data: 0x00 0xFF 0xFE (3Bytes)
  *
  *       Send packet: | 0xFF | 0x03 | 0x00 | 0xFE | 0xFF^0xFE | 0xFE | 0xFE^0xFE | 0xFE | 0xFE^0xFF | 0x02 |
