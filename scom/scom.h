@@ -8,8 +8,6 @@
 #ifndef SCOM_SCOM_H_
 #define SCOM_SCOM_H_
 
-#include "stm32f7xx_hal.h"
-
 /*
  *  Serial Communication Protocol
  *
@@ -34,6 +32,9 @@
  *                                                             ˜˜˜˜˜˜˜˜˜0x01      ˜˜˜˜˜˜˜˜˜0x00
  */
 
+#include "stm32f7xx_hal.h"
+
+
 /* definitions */
 
 // message format
@@ -41,8 +42,10 @@
 #define SCOM_ESCSEQ  (0xFE)
 #define SCOM_TIMEOUT (0x0F)
 
+// max number of connections
 #define SCOM_MAX_CONNECTION (5)
 
+// constant macro to declare invalid connection structure
 #define SCOM_INVALID_CONNECTION {NULL, -1}
 
 // communication status
@@ -50,7 +53,7 @@ typedef enum{
 	SCOM_SUCCESS,
 	SCOM_FAIL,
 	SCOM_ERROR,
-} scom_status;
+}scom_status;
 
 
 /* structures */
@@ -70,16 +73,16 @@ typedef struct{
 
 /* private functions */
 
-// returns invalid connection
+// returns invalid connection structure
 scom_connection scom_invalid_connection();
 
-// detect error
+// interprets error
 scom_status scom_error_scan(HAL_StatusTypeDef);
 
-// read message including escape sequence
+// reads message including escape sequence
 scom_status scom_read_msg(UART_HandleTypeDef*, uint8_t*, int*);
 
-// write message
+// writes message with escape sequnce
 void scom_write_msg(uint8_t data, uint8_t**, int*);
 
 
@@ -88,25 +91,25 @@ void scom_write_msg(uint8_t data, uint8_t**, int*);
 // connect newly
 scom_connection scom_connect(UART_HandleTypeDef*);
 
-// find connection by huart pointer
+// finds connection by huart pointer
 scom_connection scom_find_connection(UART_HandleTypeDef*);
 
-// determine if connection is valid
+// determines if connection is valid
 int scom_is_valid_connection(scom_connection);
 
-// get sync state
+// gets sync state
 scom_status scom_sync_state(scom_connection);
 
-// try sync
+// tries sync
 scom_status scom_sync_try(scom_connection);
 
-// sync start
+// starts sync by interrupt
 scom_status scom_sync_start_it(scom_connection);
 
-// receive
+// receives
 scom_status scom_receive(scom_connection, scom_databuf);
 
-// transmit
+// transmits
 scom_status scom_transmit(scom_connection, scom_databuf);
 
 
