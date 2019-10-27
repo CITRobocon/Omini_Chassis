@@ -1,6 +1,6 @@
 # Omini_Chassis
 ## Headers
-* **physical.h**
+* **physical**
   > 物理定数定義ヘッダ
 * **ticker**
   > タイマ割り込み管理プログラム
