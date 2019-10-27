@@ -45,15 +45,15 @@
 
 #define SCOM_INVALID_CONNECTION {NULL, -1}
 
-
-/* structures */
-
 // communication status
 typedef enum{
 	SCOM_SUCCESS,
 	SCOM_FAIL,
 	SCOM_ERROR,
 } scom_status;
+
+
+/* structures */
 
 // connection
 typedef struct{
