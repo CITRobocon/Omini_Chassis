@@ -30,8 +30,8 @@
  *                    |      |      | Data1|       Data2      |       Data3      |      LoByte      |HiByte|
  *                    |Header|Length|          SerializedMessageData             |         Checksum        |
  *
- *                     (Checksum = 0xFF + 0x03 + 0xFE + 0xFF^0xFE + 0xFE + 0xFE^0xFE = 0x02FF)
- *                                                      ˜˜˜˜˜˜˜˜˜ 0x01     ˜˜˜˜˜˜˜˜˜ 0x00
+ *                     (Checksum = 0xFF + 0x03 + 0x00 + 0xFE + 0xFF^0xFE + 0xFE + 0xFE^0xFE = 0x02FF)
+ *                                                             ˜˜˜˜˜˜˜˜˜0x01      ˜˜˜˜˜˜˜˜˜0x00
  */
 
 /* definitions */
