@@ -11,13 +11,9 @@
 #include "stm32f7xx_hal.h"
 
 /*
- *  Serial Communication Protocol version 1.0
- *
- *    1.Overview
- *       This protocol is aimed at point-to-point communications over a serial transmission line.
- *       We serialize simply adding a packet header and checksum tail.
- *
- *    2.Packet format
+ *  Serial Communication Protocol
+ 
+ *    Packet format
  *       1 Byte  - Sync Header(0xFF)
  *       1 Byte  - Message Length (N)
  *       N Bytes - Serialized Message Data
@@ -25,11 +21,8 @@
  *
  *       0xFF: Sync Header
  *       0xFE: Escape sequence and mask
- *
- *    3.Data serialization
- *
- *
- *    example:
+ 
+ *    An example:
  *      Data: 0x00 0xFF 0xFE (3Bytes)
  *
  *      Send packet: | 0xFF | 0x03 | 0x00 | 0xFE | 0xFF^0xFE | 0xFE | 0xFE^0xFE | 0xFE | 0xFE^0xFF | 0x02 |
