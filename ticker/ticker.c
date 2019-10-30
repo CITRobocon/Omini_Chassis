@@ -101,8 +101,6 @@ void ticker_assign(void (*fptr)(void), int priority, double cycle, char unit){
 
 		ticker_num_tasks_++;
 	}
-
-	return;
 }
 
 // assign task
@@ -111,8 +109,6 @@ void ticker_assign_task(ticker_task task){
 		ticker_tasks_[ticker_num_tasks_] = task;
 		ticker_num_tasks_++;
 	}
-
-	return;
 }
 
 // schedule timer interrupt
@@ -184,8 +180,6 @@ void ticker_schedule(void){
 	}
 
 	ticker_num_scheduled_tasks_ = ticker_num_tasks_;
-
-	return;
 }
 
 // start interrupt
@@ -213,6 +207,4 @@ void ticker_call(){
 	}
 
 	ticker_call_counter_ = -1;
-
-	return;
 }
