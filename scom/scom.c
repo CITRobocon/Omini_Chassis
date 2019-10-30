@@ -8,7 +8,7 @@
 #include "scom.h"
 
 
-/* private variables */
+/* private variable */
 
 // connections
 scom_connection scom_connections_[SCOM_MAX_CONNECTION] = {};
@@ -30,7 +30,7 @@ const scom_connection scom_invalid_connection(){
 	return invalid_connection;
 }
 
-// error detector
+// detects error
 scom_status scom_error_scan(HAL_StatusTypeDef hal_status){
 	switch(hal_status){
 	// success
@@ -41,7 +41,7 @@ scom_status scom_error_scan(HAL_StatusTypeDef hal_status){
 	case HAL_BUSY: // error in calling (multiple call)
 		return SCOM_FAIL;
 
-	// error
+	// unrecoverable error
 	case HAL_ERROR:   // error in argument of HAL_UART_??????? (data pointer is NULL or size is Zero)
 	case HAL_TIMEOUT: // connection error
 	default:          // unexpected error
@@ -49,7 +49,7 @@ scom_status scom_error_scan(HAL_StatusTypeDef hal_status){
 	}
 }
 
-// read message including escape sequence
+// reads message including escape sequence
 scom_status scom_read_msg(UART_HandleTypeDef *huart_ptr, uint8_t *msg_ptr, int *sum_ptr){
 	scom_status status;
 	uint8_t rxbuf[1];
@@ -77,7 +77,7 @@ scom_status scom_read_msg(UART_HandleTypeDef *huart_ptr, uint8_t *msg_ptr, int *
 	return SCOM_SUCCESS;
 }
 
-// write message with escape sequence
+// writes message
 void scom_write_msg(uint8_t data, uint8_t **msg_ptr, int *sum_ptr){
 	if (data == SCOM_ESCSEQ || data == SCOM_HEADER){
 		(*sum_ptr) += SCOM_ESCSEQ;
@@ -99,7 +99,7 @@ void scom_write_msg(uint8_t data, uint8_t **msg_ptr, int *sum_ptr){
 
 /* public functions */
 
-// connect newly
+// connects newly
 scom_connection scom_connect(UART_HandleTypeDef *huart_ptr){
 	scom_connection connection = scom_find_connection(huart_ptr);
 
@@ -117,17 +117,17 @@ scom_connection scom_connect(UART_HandleTypeDef *huart_ptr){
 	return connection;
 }
 
-// find connection by huart pointer
+// finds connection by huart pointer
 scom_connection scom_find_connection(UART_HandleTypeDef *huart_ptr){
 	for (int i = 0; i < scom_num_connections_; i++){
-		if (huart_ptr == scom_connections_[i].huart_ptr);
-		return scom_connections_[i];
+		if (huart_ptr == scom_connections_[i].huart_ptr)
+			return scom_connections_[i];
 	}
 
 	return scom_invalid_connection();
 }
 
-// determine if connection is valid
+// determines if connection is valid
 int scom_is_valid_connection(scom_connection connection){
 	if (connection.index != -1){
 		return 1;
@@ -138,8 +138,8 @@ int scom_is_valid_connection(scom_connection connection){
 
 }
 
-// get sync state
-scom_status scom_sync_state(scom_connection connection){
+// returns sync state
+scom_status scom_sync_status(scom_connection connection){
 	if (scom_hbuf_[connection.index][0] == SCOM_HEADER){
 		return SCOM_SUCCESS;
 	}
@@ -148,31 +148,33 @@ scom_status scom_sync_state(scom_connection connection){
 	}
 }
 
-// try sync
+// tries sync
 scom_status scom_sync_try(scom_connection connection){
 	scom_hbuf_[connection.index][0] = '\0';
 	return scom_error_scan(HAL_UART_Receive(connection.huart_ptr, scom_hbuf_[connection.index], 1, SCOM_TIMEOUT));
 }
 
-// start sync with interrupt
+// starts sync with timer interrupt
 scom_status scom_sync_start_it(scom_connection connection){
 	scom_hbuf_[connection.index][0] = '\0';
 	return scom_error_scan(HAL_UART_Receive_IT(connection.huart_ptr, scom_hbuf_[connection.index], 1));
 }
 
-// receive
+// receives
 scom_status scom_receive(scom_connection connection, scom_databuf data_buf){
 	scom_status status;
 
-	if (scom_sync_state(connection) == SCOM_SUCCESS){
+	if (scom_sync_status(connection) == SCOM_SUCCESS){
+		scom_hbuf_[connection.index][0] = '\0';
+
 		int i, sum = 0;
-		uint8_t data_size;
+		size_t data_size;
 
 		if ((status = scom_read_msg(connection.huart_ptr, &data_size, &sum)) != SCOM_SUCCESS){
 			return status; // receive fail
 		}
 
-		uint8_t data[(const uint8_t) data_size];
+		uint8_t data[(const size_t) data_size];
 
 		for (i = 0; i < data_size; i++){
 			if ((status = scom_read_msg(connection.huart_ptr, data+i, &sum)) != SCOM_SUCCESS){
@@ -188,7 +190,7 @@ scom_status scom_receive(scom_connection connection, scom_databuf data_buf){
 			}
 		}
 
-		if (sum == ((int)(checksum[0]) & ((int)(checksum[1]) << 8))){
+		if ((sum & 0xFFFF) == ((int)(checksum[0]) | ((int)(checksum[1]) << 8))){
 			for (i = 0; i < data_buf.data_size && i < data_size; i++){
 				(*(data_buf.data_ptr + i)) = data[i];
 			}
@@ -204,7 +206,7 @@ scom_status scom_receive(scom_connection connection, scom_databuf data_buf){
 	}
 }
 
-// transmit
+// transmits
 scom_status scom_transmit(scom_connection connection, scom_databuf data_buf){
 	int i, sum = 0;
 	uint8_t txbuf[(const uint8_t)(1 + 1*2 + data_buf.data_size*2 + 2*2)]; // max length of (header + size + data + checksum)
@@ -225,4 +227,3 @@ scom_status scom_transmit(scom_connection connection, scom_databuf data_buf){
 
 	return scom_error_scan(HAL_UART_Transmit(connection.huart_ptr, txbuf, (*txbuf_pptr) - txbuf, SCOM_TIMEOUT));
 }
-
