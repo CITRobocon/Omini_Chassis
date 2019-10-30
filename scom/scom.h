@@ -8,55 +8,60 @@
 #ifndef SCOM_SCOM_H_
 #define SCOM_SCOM_H_
 
-/*
- *  Serial Communication Protocol
- *
- *    Packet format
- *       1 Byte     - Sync Header(0xFF)
- *       1~2 Bytes  - Message Length (N)
- *       N~2N Bytes - Serialized Data
- *       2~4 Bytes  - Checksum over Message
- *
- *       0xFF: Sync Header
- *       0xFE: Escape Sequence and Mask
- *
- *    An example
- *       Data: 0x00 0xFF 0xFE (3Bytes)
- *
- *       Send packet: | 0xFF | 0x03 | 0x00 | 0xFE | 0xFF^0xFE | 0xFE | 0xFE^0xFE | 0xFE | 0xFE^0xFF | 0x02 |
- *                    |      |      |      |EscSeq| MaskedData|EscSeq| MaskedData|EscSeq| MaskedData|      |
- *                    |      |      | Data1|       Data2      |       Data3      |      LoByte      |HiByte|
- *                    |Header|Length|                SerializedData              |         Checksum        |
- *
- *                     (Checksum = 0xFF + 0x03 + 0x00 + 0xFE + 0xFF^0xFE + 0xFE + 0xFE^0xFE = 0x02FF)
- *                                                             ˜˜˜˜˜˜˜˜˜0x01      ˜˜˜˜˜˜˜˜˜0x00
- */
-
 #include "stm32f7xx_hal.h"
 
+/*
+ *  Serial Communication Protocol version 1.0
+ *
+ *    1.Overview
+ *       This protocol is aimed at point-to-point communications over a serial transmission line.
+ *       We serialize simply adding a packet header and checksum tail.
+ *
+ *    2.Packet format
+ *       1 Byte  - Sync Header(0xFF)
+ *       1 Byte  - Message Length (N)
+ *       N Bytes - Serialized Message Data
+ *       2 Bytes - Checksum over Message
+ *
+ *       0xFF: Sync Header
+ *       0xFE: Escape sequence and mask
+ *
+ *    3.Data serialization
+ *
+ *
+ *    example:
+ *      Data: 0x00 0xFF 0xFE (3Bytes)
+ *
+ *      Send packet: | 0xFF | 0x03 | 0x00 | 0xFE | 0xFF^0xFE | 0xFE | 0xFE^0xFE | 0xFE | 0xFE^0xFF | 0x02 |
+ *                   |      |      |      |EscSeq| MaskedData|EscSeq| MaskedData|EscSeq| MaskedData|      |
+ *                   |      |      | Data1|       Data2      |       Data3      |      LoByte      |HiByte|
+ *                   |Header|Length|          SerializedMessageData             |         Checksum        |
+ *
+ *                    (Checksum = 0xFF + 0x03 + 0xFE + 0xFF^0xFE + 0xFE + 0xFE^0xFE = 0x02FF)
+ *                                                     ˜˜˜˜˜˜˜˜˜ 0x01     ˜˜˜˜˜˜˜˜˜ 0x00
+ *
+ */
 
 /* definitions */
 
 // message format
 #define SCOM_HEADER  (0xFF)
 #define SCOM_ESCSEQ  (0xFE)
-#define SCOM_TIMEOUT (0x0F)
+#define SCOM_TIMEOUT (0xFF)
 
-// max number of connections
 #define SCOM_MAX_CONNECTION (5)
 
-// constant macro to declare invalid connection structure
 #define SCOM_INVALID_CONNECTION {NULL, -1}
+
+
+/* structures */
 
 // communication status
 typedef enum{
 	SCOM_SUCCESS,
 	SCOM_FAIL,
 	SCOM_ERROR,
-}scom_status;
-
-
-/* structures */
+} scom_status;
 
 // connection
 typedef struct{
@@ -73,22 +78,22 @@ typedef struct{
 
 /* private functions */
 
-// returns invalid connection structure
+// returns invalid connection
 scom_connection scom_invalid_connection();
 
-// interprets error
+// detects error
 scom_status scom_error_scan(HAL_StatusTypeDef);
 
 // reads message including escape sequence
 scom_status scom_read_msg(UART_HandleTypeDef*, uint8_t*, int*);
 
-// writes message with escape sequnce
+// writes message
 void scom_write_msg(uint8_t data, uint8_t**, int*);
 
 
 /* public functions */
 
-// connect newly
+// connects newly
 scom_connection scom_connect(UART_HandleTypeDef*);
 
 // finds connection by huart pointer
@@ -97,13 +102,13 @@ scom_connection scom_find_connection(UART_HandleTypeDef*);
 // determines if connection is valid
 int scom_is_valid_connection(scom_connection);
 
-// gets sync state
-scom_status scom_sync_state(scom_connection);
+// returns sync state
+scom_status scom_sync_status(scom_connection);
 
 // tries sync
 scom_status scom_sync_try(scom_connection);
 
-// starts sync by interrupt
+// starts sync with timer interrupt
 scom_status scom_sync_start_it(scom_connection);
 
 // receives
