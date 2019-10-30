@@ -1,5 +1,5 @@
 /*
- * timer_it_manager.h
+ * ticker.h
  *
  *  Created on: Oct 20, 2019
  *      Author: shohei
@@ -11,10 +11,10 @@
 #include <stdlib.h>
 #include "stm32f7xx_hal.h"
 
-#define MAX_TASKS 10
+#define TICKER_MAX_TASKS 10
 
 
-/* a structure */
+/* a ticker structure */
 
 typedef struct{
 	void (*fptr)(void);
@@ -43,8 +43,14 @@ void ticker_assign(void (void), int, double, char);
 // assign a task
 void ticker_assign_task(ticker_task);
 
-// run
-void ticker_run();
+// schedule timer interrupt
+void ticker_schedule();
+
+// start interrupt
+void ticker_start();
+
+// stop interrupt
+void ticker_stop();
 
 // calling function
 void ticker_call();
