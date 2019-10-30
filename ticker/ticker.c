@@ -22,7 +22,8 @@ unsigned int ticker_call_counter_ = 0;
 
 // tasks
 int ticker_num_tasks_ = 0;
-ticker_task ticker_tasks_[MAX_TASKS] = {};
+int ticker_num_scheduled_tasks_ = 0;
+ticker_task ticker_tasks_[TICKER_MAX_TASKS] = {};
 
 
 /* a private function */
@@ -59,6 +60,7 @@ ticker_task ticker_task_create(void (*fptr)(void), int priority, double cycle, c
 void ticker_init(TIM_HandleTypeDef *htim_ptr, int timer_frequency, char unit){
 	ticker_htim_ptr_ = htim_ptr;
 	ticker_num_tasks_ = 0;
+	ticker_num_scheduled_tasks_ = 0;
 
 	ticker_it_counter_period_ = 1;
 	ticker_counter_ = 0;
@@ -83,34 +85,38 @@ void ticker_init(TIM_HandleTypeDef *htim_ptr, int timer_frequency, char unit){
 
 // assign new task
 void ticker_assign(void (*fptr)(void), int priority, double cycle, char unit){
-	ticker_tasks_[ticker_num_tasks_].fptr = fptr;
-	ticker_tasks_[ticker_num_tasks_].priority = priority;
+	if (ticker_num_tasks_ < TICKER_MAX_TASKS){
+		ticker_tasks_[ticker_num_tasks_].fptr = fptr;
+		ticker_tasks_[ticker_num_tasks_].priority = priority;
 
-	switch (unit){
-	case 's':
-		ticker_tasks_[ticker_num_tasks_].counter_period = (unsigned int)(ticker_clock_frequency_ * cycle);
-		break;
+		switch (unit){
+		case 's':
+			ticker_tasks_[ticker_num_tasks_].counter_period = (unsigned int)(ticker_clock_frequency_ * cycle);
+			break;
 
-	case 'f':
-	default:
-		ticker_tasks_[ticker_num_tasks_].counter_period = ticker_clock_frequency_ / (unsigned int)cycle;
+		case 'f':
+		default:
+			ticker_tasks_[ticker_num_tasks_].counter_period = ticker_clock_frequency_ / (unsigned int)cycle;
+		}
+
+		ticker_num_tasks_++;
 	}
-
-	ticker_num_tasks_++;
 
 	return;
 }
 
 // assign task
 void ticker_assign_task(ticker_task task){
-	ticker_tasks_[ticker_num_tasks_] = task;
-	ticker_num_tasks_++;
+	if (ticker_num_tasks_ < TICKER_MAX_TASKS){
+		ticker_tasks_[ticker_num_tasks_] = task;
+		ticker_num_tasks_++;
+	}
 
 	return;
 }
 
-// run
-void ticker_run(void){
+// schedule timer interrupt
+void ticker_schedule(void){
 	qsort(ticker_tasks_, ticker_num_tasks_, sizeof(ticker_task), ticker_task_priority_compare);
 
 	int min_c_period = ticker_clock_frequency_, max_c_period = 0;
@@ -177,7 +183,19 @@ void ticker_run(void){
 		Error_Handler();
 	}
 
+	ticker_num_scheduled_tasks_ = ticker_num_tasks_;
+
+	return;
+}
+
+// start interrupt
+void ticker_start(){
 	HAL_TIM_Base_Start_IT(ticker_htim_ptr_);
+}
+
+// stop interrupt
+void ticker_stop(){
+	HAL_TIM_Base_Stop_IT(ticker_htim_ptr_);
 }
 
 // calling function
@@ -188,7 +206,7 @@ void ticker_call(){
 		ticker_counter_ = 0;
 	}
 
-	for (ticker_call_counter_ = 0; ticker_call_counter_ < ticker_num_tasks_; ticker_call_counter_++){
+	for (ticker_call_counter_ = 0; ticker_call_counter_ < ticker_num_scheduled_tasks_; ticker_call_counter_++){
 		if ((ticker_it_counter_period_ * ticker_counter_) % ticker_tasks_[ticker_call_counter_].counter_period == 0){
 			(*(ticker_tasks_[ticker_call_counter_].fptr))();
 		}
