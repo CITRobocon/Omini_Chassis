@@ -34,6 +34,7 @@
  *                                                            ˜˜˜˜˜˜˜˜˜ 0x01     ˜˜˜˜˜˜˜˜˜ 0x00
  */
 
+
 /* definitions */
 
 // message format
@@ -44,7 +45,7 @@
 // maximum number of connections
 #define SCOM_MAX_CONNECTION (5)
 
-// initialize with invalid connection
+// initialization with invalid connection
 #define SCOM_INVALID_CONNECTION {NULL, -1}
 
 
