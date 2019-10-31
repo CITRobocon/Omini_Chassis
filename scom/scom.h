@@ -41,8 +41,10 @@
 #define SCOM_ESCSEQ  (0xFE)
 #define SCOM_TIMEOUT (0xFF)
 
+// maximum number of connections
 #define SCOM_MAX_CONNECTION (5)
 
+// initialize with invalid connection
 #define SCOM_INVALID_CONNECTION {NULL, -1}
 
 
@@ -53,7 +55,7 @@ typedef enum{
 	SCOM_SUCCESS,
 	SCOM_FAIL,
 	SCOM_ERROR,
-} scom_status;
+}scom_status;
 
 // connection
 typedef struct{
