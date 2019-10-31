@@ -14,25 +14,24 @@
  *  Serial Communication Protocol
  
  *    Packet format
- *       1 Byte  - Sync Header(0xFF)
- *       1 Byte  - Message Length (N)
- *       N Bytes - Serialized Message Data
- *       2 Bytes - Checksum over Message
+ *       1 Byte     - Sync Header(0xFF)
+ *       1~2 Byte   - Message Length (N)
+ *       N~2N Bytes - Serialized Message Data
+ *       2~4 Bytes  - Checksum over Message
  *
  *       0xFF: Sync Header
  *       0xFE: Escape sequence and mask
- 
+ *
  *    An example:
- *      Data: 0x00 0xFF 0xFE (3Bytes)
+ *      Data: 0xFD 0x00 0xFF 0xFE (4 Bytes)
  *
- *      Send packet: | 0xFF | 0x03 | 0x00 | 0xFE | 0xFF^0xFE | 0xFE | 0xFE^0xFE | 0xFE | 0xFE^0xFF | 0x02 |
- *                   |      |      |      |EscSeq| MaskedData|EscSeq| MaskedData|EscSeq| MaskedData|      |
- *                   |      |      | Data1|       Data2      |       Data3      |      LoByte      |HiByte|
- *                   |Header|Length|          SerializedMessageData             |         Checksum        |
+ *      Send packet: | 0xFF | 0x04 | 0xFD | 0x00 | 0xFE | 0xFF^0xFE | 0xFE | 0xFE^0xFE | 0xFE | 0xFE^0xFF | 0x02 |
+ *                   |      |      |      |      |EscSeq| MaskedData|EscSeq| MaskedData|EscSeq| MaskedData|      |
+ *                   |      |      | Data1| Data2|       Data3      |       Data4      |      LoByte      |HiByte|
+ *                   |Header|Length|             SerializedMessageData                 |         Checksum        |
  *
- *                    (Checksum = 0xFF + 0x03 + 0xFE + 0xFF^0xFE + 0xFE + 0xFE^0xFE = 0x02FF)
- *                                                     ˜˜˜˜˜˜˜˜˜ 0x01     ˜˜˜˜˜˜˜˜˜ 0x00
- *
+ *                    (Checksum = 0x04 + 0xFD + 0x00 + 0xFE + 0xFF^0xFE + 0xFE + 0xFE^0xFE = 0x02FF)
+ *                                                            ˜˜˜˜˜˜˜˜˜ 0x01     ˜˜˜˜˜˜˜˜˜ 0x00
  */
 
 /* definitions */
