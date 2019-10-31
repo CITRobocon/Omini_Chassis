@@ -12,7 +12,7 @@
 
 /*
  *  Serial Communication Protocol
- 
+ *
  *    Packet format
  *       1 Byte     - Sync Header(0xFF)
  *       1~2 Byte   - Message Length (N)
