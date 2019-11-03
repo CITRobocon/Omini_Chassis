@@ -10,7 +10,9 @@
 
 #include <stddef.h>
 
-// low level filter sets based on filters_io_ptr
+
+/* structures */
+
 typedef struct{
 	struct{
 		float *in;
