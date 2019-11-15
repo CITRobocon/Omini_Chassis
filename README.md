@@ -14,7 +14,7 @@
   
 * **scom**
   > <dl>
-  >  <dt>scom/scom.h</dt>
+  >  <dt>scom/scom.h, src: scom/scom.c</dt>
   >  <dd>シリアル通信管理プログラム</dd>
   > </dl>
   
