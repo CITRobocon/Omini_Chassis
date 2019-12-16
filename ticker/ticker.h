@@ -13,13 +13,10 @@
 
 
 /* a definition  */
-/*
 #define TICKER_MAX_TASKS 10
-*/
 
 /* ticker structures */
 
-/*
 typedef struct{
 	// call period in millisecond
 	uint32_t period_ms;
@@ -42,16 +39,12 @@ typedef struct{
 	// period for argument
 	uint32_t prev_tick;
 }ticker_task;
-*/
 
 /* a private function */
-/*
 // comparing function for qsort in stdlib
 int ticker_task_priority_compare(const void*, const void*);
-*/
 
 /* public functions */
-/*
 // create ticker_task structure
 ticker_task ticker_task_create(void (ticker_args), void*, int, double, char);
 
@@ -75,6 +68,5 @@ void ticker_stop();
 
 // calling function
 void ticker_call();
-*/
 
 #endif /* TICKER_TICKER_H_ */
