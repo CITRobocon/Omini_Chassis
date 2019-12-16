@@ -9,7 +9,6 @@
 
 
 /* private global variables */
-/*
 // timer configurations: timer handler pointer, clock frequency
 TIM_HandleTypeDef *ticker_htim_ptr_ = NULL;
 unsigned int ticker_clock_frequency_ = 0;			// maximum: 4.29GHz (range of unsigned int)
@@ -24,20 +23,16 @@ unsigned int ticker_call_counter_ = 0;
 int ticker_num_tasks_ = 0;
 int ticker_num_scheduled_tasks_ = 0;
 ticker_task ticker_tasks_[TICKER_MAX_TASKS] = {};
-*/
 
 /* a private function */
 
-/*
 // comparing function for qsort in stdlib
 int ticker_task_priority_compare(const void *a, const void *b){
 	return ((ticker_task*)a)->priority - ((ticker_task*)b)->priority;
 }
-*/
 
 /* public functions */
 
-/*
 // create ticker_task structure
 ticker_task ticker_task_create(void (*fptr)(ticker_args), void *argptr, int priority, double cycle, char unit){
 	ticker_task task;
@@ -230,4 +225,3 @@ void ticker_call(){
 
 	ticker_call_counter_ -= ticker_num_scheduled_tasks_;
 }
-*/
