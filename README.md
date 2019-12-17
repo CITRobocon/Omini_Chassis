@@ -32,7 +32,7 @@
 
 <br>
 
-## cubeMX pin configurations (Last update: 2019/10/24 sano)
+## cubeMX pin configurations (Last update: 2019/12/17 sano)
 * **System Core**
   * **RCC**
     > <dl>
@@ -71,7 +71,7 @@
     >  <dd>エンコーダカウンタ（右エンコーダ/正方向）</dd>
     > </dl>
       
-  * **TIM7**
+  * **TIM6**
     > <dl>
     >  <dt>Activated</dt>
     >  <dd>タイマ割り込み（ticker管理）</dd>
