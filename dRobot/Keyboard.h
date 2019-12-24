@@ -9,13 +9,13 @@
  *   Upward output: None
  *   Upward input:	None
  *
- *   Downward output: Float value volumed keyboard input
+ *   Downward output: float, uint8, twist volumed by keyboard input
  *   Downward input:  None
  *
- *                ____________
- *     empty --> |            | --> Keyboard/empty
- *               |  Keyboard  |
- *     float <-- |____________| <-- Keyboard/empty
+ *                    ____________
+ *         empty --> |            | --> Keyboard/empty
+ *                   |  Keyboard  |
+ *     float x10 <-- |____________| <-- Keyboard/empty
  *
  */
 
